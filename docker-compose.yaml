@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  openam:
+    image: openidentityplatform/openam:14.7.2
+    container_name: openam
+    hostname: openam.example.com
+    ports:
+      - "8080:8080"
+    networks:
+      - local-net
+  apache_agent:
+    build:
+      context: ./application1
+      dockerfile: ./Dockerfile
+    container_name: apache_agent
+    hostname: example.com
+    shm_size: 2g
+    ports:
+      - "8081:8081"
+    networks:
+      - local-net
+
+networks:
+  local-net:
